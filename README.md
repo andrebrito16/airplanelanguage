@@ -19,46 +19,46 @@ to created the _Airplane Code Language_.
 ```
 BLOCK = { STATEMENT };
 
-STATEMENT =  {  λ, ASSIGNMENT | WHILE | FUNCTION | IF | COMMENT | RETURN };
+STATEMENT =  (  | ASSIGNMENT | WHILE | FUNCTION | IF | COMMENT | RETURN );
 
-ASSIGNMENT = IDENTIFIER -> TYPE = EXPRESSION;
+
+ASSIGNMENT = { IDENTIFIER, "->", TYPE, "=", EXPRESSION };
+
+PARAMETER = { IDENTIFIER, "->", TYPE, {",", IDENTIFIER, "->", TYPE } };
 
 TYPE = ( "int" | "float" | "string" | "waypoint" | "flight_level" );
 
-WHILE = "while" "(" EXPRESRELEXPRESSION ")" "{" STATEMENT "}";
+WHILE = "while", "(", RELEXPRESSION, ")", "{", STATEMENT, "}";
 
-FUNCTION = "function" IDENTIFIER "(" [PARAMETER] ")" STATEMENT ;
+FUNCTION = "function", IDENTIFIER, "(", [PARAMETER], ")", STATEMENT ;
 
-PARAMETER = IDENTIFIER, "->", TYPE, { "," IDENTIFIER -> TYPE };
+IF = "if", "(", EXPRESSION, ")", STATEMENT ;
 
-IF = "if" "(" EXPRESSION ")" STATEMENT ;
+PRINT = "print", "(", EXPRESSION, ")";
 
-COMMENT = "//" STRING;
+RELEXPRESSION = EXPRESSION, ( "==" | "!=" | "<" | ">" | "<=" | ">=" ), EXPRESSION;
 
-PRINT = "print" "(" EXPRESSION ")";
+EXPRESSION = TERM, { ("+" | "-"), TERM };
 
-RELEXPRESSION = EXPRESSION ( "==" | "!=" | "<" | ">" | "<=" | ">=" ) EXPRESSION;
-
-EXPRESSION = TERM { ("+" | "-") TERM };
-
-TERM = FACTOR { ("*" | "/") FACTOR };
+TERM = FACTOR, { ("*" | "/"), FACTOR };
 
 MATHFUNC = ( "sin" | "cos" | "tan" | "asin" | "acos" | "atan" | "sqrt" | "pow" | "log" | "exp" | "abs" | "ceil" | "floor" | "round" );
 
-FACTOR -> (("+" | "-" | "!"), FACTOR) | NUMBER | STRING | "(", RELEXPR, ")" | IDENTIFIER, ["(", RELEXPR, {",", RELEXPR} ,")"] | ("READLN", "(", ")") | ("MATHFUNC", "(", RELEXPR, {",", RELEXPR} ,")");
+FACTOR = (("+" | "-" | "!"), FACTOR) | NUMBER | STRING | "(", RELEXPR, ")" | IDENTIFIER, ["(", RELEXPR, {",", RELEXPR} ,")"] | ("MATHFUNC", "(", RELEXPR, {",", RELEXPR} ,")");
 
-IDENTIFIER = LETTER { LETTER | DIGIT | "_" };
+IDENTIFIER = LETTER, { LETTER | DIGIT | "_" };
 
 NUMBER = DIGIT, { DIGIT };
 
-RETURN = "return" RELEXPRESSION;
+RETURN = "return", RELEXPRESSION;
 
-DIGIT = ( 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 );
+DIGIT = ( "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" );
 
-LETTER = ( a | ... | z | A | ... | Z );
+LETTER = ( "a" | "..." | "z" | "A" | "..." | "Z" );
 ```
 
 ### Codes example
+
 ```airplane
 // This is a comment
 
