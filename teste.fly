@@ -1,0 +1,31 @@
+speed -> int = 250
+altitude -> int = 12000
+vertical_speed -> int = 1250
+
+// Define waypoints
+waypoint_1 -> waypoint = "BUXEV"
+
+waypoint_2 -> waypoint = "GERTU"
+
+// Function
+function climb_to_cruise_level(current_altitude, target_altitude, vertical_speed -> int) {
+  print("Climbing to cruise level")
+  original_target_altitude -> int = target_altitude
+  while (current_altitude < target_altitude) {
+    current_altitude = current_altitude + vertical_speed
+
+    if (current_altitude - original_target_altitude <= 900 || current_altitude - original_target_altitude >= 1100) {
+      print("Altitude indicator sound!")
+    }
+  }
+}
+
+climb_to_cruise_level(altitude, 37000, vertical_speed)
+print("Cruise level reached!")
+
+```
+// Define waypoints
+waypoint_1 -> waypoint = "BUXEV"
+
+waypoint_2 -> waypoint = "QUALQUER COISA" // Throws error because this waypoint is invalid
+```

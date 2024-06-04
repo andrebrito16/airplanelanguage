@@ -1,0 +1,4 @@
+// Define waypoints
+waypoint_1 -> waypoint = "BUXEV"
+
+waypoint_2 -> waypoint = "QUALQUER COISA" // Throws error because this waypoint is invalid
